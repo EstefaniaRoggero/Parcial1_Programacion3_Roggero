@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recetas API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div class="container">
+
+    <h1>🍲 Sistema de Recetas</h1>
+
+    <!-- ================= BUSQUEDAS ================= -->
+<div class="top-panel">
+    <section class="panel">
+
+        <h2>🔎 Buscar recetas</h2>
+        <button id="btn-mostrar">Mostrar todas las recetas</button>
+
+        <!-- POR ID -->
+        <form id="form-id">
+            <input type="number" id="receta-id" placeholder="Buscar por ID" min="1">
+           <button type="submit" id="btn-guardar">
+    Buscar por ID
+</button>
+        </form>
+
+        <!-- POR NOMBRE -->
+         <input type="hidden" id="receta-id-editar">
+        <form id="form-nombre">
+            <input type="text" id="receta-nombre" placeholder="Buscar por nombre">
+            <button type="submit">Buscar</button>
+        </form>
+
+        <!-- POR DIFICULTAD -->
+       <form id="form-dificultad">
+
+    <select id="receta-dificultad">
+
+        <option value="">Seleccionar dificultad</option>
+        <option value="Fácil">Fácil</option>
+        <option value="Medio">Medio</option>
+        <option value="Difícil">Difícil</option>
+
+    </select>
+
+    <button type="submit">Buscar</button>
+
+</form>
+
+    </section>
+
+    <!-- ================= CREAR RECETA ================= -->
+
+    <section class="panel">
+
+        <h2>➕ Agregar receta</h2>
+
+        <form id="form-create">
+
+            <input type="text" id="nombre" placeholder="Nombre" required>
+
+            <select id="categoria" required>
+
+    <option value="">Seleccionar categoría</option>
+    <option value="Dulce">Dulce</option>
+    <option value="Salado">Salado</option>
+    <option value="Agridulce">Agridulce</option>
+
+</select>
+
+            <input type="number" id="tiempo" placeholder="Tiempo" required>
+
+            <select id="dificultad" required>
+
+    <option value="">Seleccionar dificultad</option>
+    <option value="Fácil">Fácil</option>
+    <option value="Medio">Medio</option>
+    <option value="Difícil">Difícil</option>
+
+</select>
+
+            <input type="text" id="ingredientes" placeholder="Ingredientes" required>
+
+            <input type="text" id="preparacion" placeholder="Preparación" required>
+
+            <button type="submit">Guardar receta</button>
+
+        </form>
+
+    </section>
+    </div>
+
+    <!-- ================= MOSTRAR RESULTADOS ================= -->
+
+    <section class="panel">
+
+        <h2>📋 Resultados</h2>
+
+        <div id="resultado"></div>
+
+    </section>
+    </div>
+
+
+
+<script src="app.js"></script>
+
+</body>
+</html>
