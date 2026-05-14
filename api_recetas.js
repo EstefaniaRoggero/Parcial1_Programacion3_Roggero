@@ -4,31 +4,36 @@ const cors = require("cors");
 
 const app = express();
 
+// ================= CONFIGURACIONES =================
+
 app.use(cors());
 app.use(express.json());
-
 app.use(express.static("frontend"));
+
+
+// ================= CONEXION MYSQL =================
 
 const db = mysql.createConnection({
     host: "localhost",
     user: "root",
     password: "",
     database: "bd_recetas"
+
 });
 
 
-// GET TODAS LAS RECETAS
+// ================= GET TODAS LAS RECETAS =================
+
 app.get("/recetas", (req, res) => {
-
     const sql = "SELECT * FROM recetas";
-
     db.query(sql, (err, result) => {
 
         if(err){
             console.log(err);
             res.send("Error en la consulta");
         } else {
-            res.send(result);
+        res.send(result);
+
         }
 
     });
@@ -36,16 +41,14 @@ app.get("/recetas", (req, res) => {
 });
 
 
-// GET RECETA POR ID
+// ================= GET RECETA POR ID =================
+
 app.get("/recetas/:id", (req, res) => {
-
     const id = req.params.id;
-
     const sql = "SELECT * FROM recetas WHERE id = ?";
-
     db.query(sql, [id], (err, result) => {
-
         if(err){
+
             console.log(err);
             res.send("Error al buscar receta");
         } else {
@@ -56,20 +59,20 @@ app.get("/recetas/:id", (req, res) => {
 
 });
 
-// GET RECETA POR NOMBRE
+
+// ================= GET RECETA POR NOMBRE =================
+
 app.get("/recetas/nombre/:nombre", (req, res) => {
-
     const nombre = req.params.nombre;
-
     const sql = "SELECT * FROM recetas WHERE nombre LIKE ?";
-
     db.query(sql, [`%${nombre}%`], (err, result) => {
 
         if(err){
             console.log(err);
             res.send("Error al buscar receta");
         } else {
-            res.send(result);
+          res.send(result);
+
         }
 
     });
@@ -77,15 +80,18 @@ app.get("/recetas/nombre/:nombre", (req, res) => {
 });
 
 
-app.post("/recetas", (req, res) => {
+// ================= POST CREAR RECETA =================
 
+app.post("/recetas", (req, res) => {
     const {
+
         nombre,
         categoria,
         tiempo,
         dificultad,
         ingredientes,
         preparacion
+
     } = req.body;
 
     const sql = `
@@ -95,7 +101,9 @@ app.post("/recetas", (req, res) => {
     `;
 
     db.query(
+
         sql,
+
         [
             nombre,
             categoria,
@@ -104,6 +112,7 @@ app.post("/recetas", (req, res) => {
             ingredientes,
             preparacion
         ],
+
         (err, result) => {
 
             if(err){
@@ -118,8 +127,10 @@ app.post("/recetas", (req, res) => {
 
 });
 
-app.put("/recetas/:id", (req, res) => {
 
+// ================= PUT MODIFICAR RECETA =================
+
+app.put("/recetas/:id", (req, res) => {
     const id = req.params.id;
 
     const {
@@ -129,6 +140,7 @@ app.put("/recetas/:id", (req, res) => {
         dificultad,
         ingredientes,
         preparacion
+
     } = req.body;
 
     const sql = `
@@ -144,6 +156,7 @@ app.put("/recetas/:id", (req, res) => {
     `;
 
     db.query(
+
         sql,
         [
             nombre,
@@ -154,6 +167,7 @@ app.put("/recetas/:id", (req, res) => {
             preparacion,
             id
         ],
+
         (err, result) => {
 
             if(err){
@@ -168,6 +182,8 @@ app.put("/recetas/:id", (req, res) => {
 
 });
 
+
+// ================= DELETE ELIMINAR RECETA =================
 
 app.delete("/recetas/:id", (req, res) => {
 
@@ -188,7 +204,11 @@ app.delete("/recetas/:id", (req, res) => {
 
 });
 
-app.listen(3000, () => {
-    console.log("Servidor corriendo en puerto 3000");
-});
 
+// ================= SERVIDOR =================
+
+app.listen(3000, () => {
+
+    console.log("Servidor corriendo en puerto 3000");
+
+});
